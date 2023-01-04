@@ -1,0 +1,6 @@
+*.exe
+*.dll
+HxC/*.bat
+CPM_UCSDP/r_*.bat
+*.hex
+ucsd*

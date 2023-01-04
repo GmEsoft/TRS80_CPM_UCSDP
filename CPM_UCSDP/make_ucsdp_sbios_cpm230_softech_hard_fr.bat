@@ -1,0 +1,1 @@
+C:/develop/TRS-80/CPM_UCSDP/make_ucsdp_sbios_cpm230_softech_hard_fr.bat
