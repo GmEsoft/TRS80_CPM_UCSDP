@@ -1,1 +1,56 @@
-C:/develop/TRS-80/CPM_UCSDP/debugger.txt
+Procedure to include the Debugger into the System Library
+=========================================================
+
+0: Boot UCSD p-System
+
+1: Ensure availability of 104 contiguous unused blocks
+	F(ile
+	E(xt-dir
+	Dir listing of what vol ? *
+	Q(uit
+
+2: Set Date
+	F(ile
+	D(ate
+	New Date ? DD-Mon-YY
+	Q(uit
+
+2: Backup SYSTEM.PASCAL
+	F(ile
+	T(rans
+	SYSTEM.PASCAL,SYSOLD.PASCAL
+	Q(uit
+
+4: Default to UTIL:
+	F(ile
+	P(refix
+	Prefix titles by what vol ? UTIL:
+	Q(uit
+
+5: Execute LIBRARY
+	X(ecute
+	LIBRARY
+	Output file? NEW.PASCAL
+	Input file? *SYSTEM.PASCAL
+	E(very
+	N(ew
+	Input file? *DEBUGGER
+	E(very
+	Q(uit
+	Notice? <ENTER>
+
+6: Install the new System Library
+	F(ile
+	T(rans
+	Transfer what file ? NEW.PASCAL,*$
+	Remove old SYSTEM.PASCAL ? Y
+	P(refix
+	Prefix titles by what vol ? *
+	C(hng
+	Change what file ? SYSTEM.PASCAL,SYSOLD.PASCAL
+	C(hng
+	Change what file ? NEW.PASCAL,SYSTEM.PASCAL
+	Q(uit
+
+7: Reboot
+	

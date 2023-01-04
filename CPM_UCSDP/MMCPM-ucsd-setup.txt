@@ -1,1 +1,218 @@
-C:/develop/TRS-80/CPM_UCSDP/MMCPM-ucsd-setup.txt
+======================================
+= UCSD Pascal Terminal Setup - CBIOS =
+======================================
+
+:::::::::::::::::
+:: Mount disks ::
+:::::::::::::::::
+
+#4: 	SYS1:	Boot System Disk 1
+#5:	SYS2:	System Disk 2
+#9:	INTERP:	Interpreter Build Disk
+#10:	.....
+
+:::::::::::::::::::::
+:: Set System Date ::
+:::::::::::::::::::::
+
+F(iler
+D(ate
+New date ? DD-MMM-YY
+Q(uit
+
+::::::::::::::::::::::
+:: Change disk size ::
+::::::::::::::::::::::
+
+=> New size:
+   SS-DD-80 - 702 (78 Pascal tracks)
+
+X(ecute
+Execute what file? DISKSIZE
+DISK SIZE CHANGER [A2]
+  Change directory of what unit? (4,5,9..12) 4
+  What is the new directory size in 512 byte blocks ? NNN
+  Insert system disk and press return
+
+U(ser restart
+Restarting...
+DISK SIZE CHANGER [A2]
+  Change directory of what unit? (4,5,9..12) 5
+  What is the new directory size in 512 byte blocks ? NNN
+  Insert system disk and press return
+
+U(ser restart
+Restarting...
+DISK SIZE CHANGER [A2]
+  Change directory of what unit? (4,5,9..12) 9
+  What is the new directory size in 512 byte blocks ? NNN
+  Insert system disk and press return
+
+U(ser restart
+Restarting...
+DISK SIZE CHANGER [A2]
+  Change directory of what unit? (4,5,9..12) 10
+  What is the new directory size in 512 byte blocks ? NNN
+  Insert system disk and press return
+
+:::::::::::::::::::
+:: Console Setup ::
+:::::::::::::::::::
+
+X(ecute
+Execute what file? SETUP
+C(HANGE
+P(ROMPTED)
+
+ERASE SCREEN			26
+ERASE TO END OF LINE		21
+ERASE TO END OF SCREEN		25
+
+HAS RANDOM CURSOR ADDRESSING	T (needs new GOTOXY) or F
+
+KEY FOR STOP			19 (^S) ?
+
+KEY TO DELETE LINE		24 (Clear)
+
+KEY TO MOVE CURSOR DOWN		10
+
+KEY TO MOVE CURSOR RIGHT	9
+KEY TO MOVE CURSOR UP		11
+
+MOVE CURSOR HOME		30
+MOVE CURSOR RIGHT		12
+MOVE CURSOR UP			11
+NON PRINTING CHARACTER		127
+
+PREFIXED[ERASE TO END OF LINE]	F
+PREFIXED[ERASE TO END OF SCREEN	F
+
+PREFIXED[MOVE CURSOR HOME]	F
+PREFIXED[MOVE CURSOR RIGHT]	F
+PREFIXED[MOVE CURSOR UP]	F
+
+Q(UIT)
+Q(UIT
+D(ISK)
+E(XIT)
+
+=> change NEW.MISCINFO to SYSTEM.MISCINFO using F(iler
+
+F(ile
+C(hng
+Change what file ? NEW.MISCINFO
+Change to what ? SYSTEM.MISCINFO
+Remove old SYS1:SYSTEM.MISCINFO ? Y
+SYS1:NEW.MISCINFO         -> SYSTEM.MISCINFO
+
+Q(uit
+I(nitialize
+
+::::::::::::::::::
+:: Adapt GOTOXY ::
+::::::::::::::::::
+
+=> Edit GOTOXY.TEXT
+
+F(ile
+G(et
+Get what file ? GOTOXY
+Q(uit
+
+E(dit
+R(plc
+Replace[1]: L(it V(fy <targ> <sub>  => L/Y+1,';',X+1,'H'/ /'=',CHR(Y+32),CHR(X+32)/
+Q(uit
+U(pdate the workfile and leave
+
+=> Compile GOTOXY
+
+C(omp
+
+=> Save GOTOXY
+
+F(ile
+S(ave
+Save as SYS1:GOTOXY ? Y
+Text file saved & Code file saved
+K(rnch
+Crunch what vol ? :
+From end to disk, block NNN  ? (Y/N) Y
+>>> reboot and restart "K(rnch" if asked !
+E(xt-dir
+Dir listing of what vol ? GOTOXY.=
+GOTOXY.TEXT        4 DD-Mon-YY   NNN   512  Textfile
+GOTOXY.CODE        3 DD-Mon-YY   NNN   512  Codefile
+P(refix
+Prefix titles by what vol ? #5
+Q(uit
+
+=> Update SYSTEM.PASCAL with new GOTOXY
+
+X(ecute
+Execute what file? LIBRARY
+Library: [IV.0 z8]
+Output file? SYSTEM.PASCAL
+
+Input file? #4:MYGOTO
+
+  0 u GOTOXY      55
+Library: T(ext
+
+Interface sections will not be copied
+Library: 0(slot-to-slot
+
+From slot #? 0 <SPACE> To slot #? 16
+
+ 16 u GOTOXY      55
+Output file is 2 blocks long
+Library: N(ew
+
+Input file? #4:SYSTEM.PASCAL
+
+(list of modules)
+
+Library: E(very
+Library: Q(uit
+
+Notice? <ENTER>
+
+=> Transfer new SYSTEM.PASCAL to root disk
+
+F(ile
+T(rans
+Transfer what file ? SYSTEM.PASCAL
+To where ? #4:$
+Remove old SYS1:SYSTEM.PASCAL ? Y
+Q(uit
+
+=> Reboot !
+
+:::::::::::::::::::::::::::::::::::::
+:: Enable random cursor addressing ::
+:::::::::::::::::::::::::::::::::::::
+
+X(ecute
+Execute what file? SETUP
+C(HANGE
+P(ROMPTED)
+
+HAS RANDOM CURSOR ADDRESSING	T
+
+Q(UIT)
+Q(UIT
+D(ISK)
+E(XIT)
+
+=> change NEW.MISCINFO to SYSTEM.MISCINFO using F(iler
+
+F(ile
+C(hng
+Change what file ? NEW.MISCINFO
+Change to what ? SYSTEM.MISCINFO
+Remove old SYS1:SYSTEM.MISCINFO ? Y
+SYS1:NEW.MISCINFO         -> SYSTEM.MISCINFO
+
+Q(uit
+I(nitialize
+

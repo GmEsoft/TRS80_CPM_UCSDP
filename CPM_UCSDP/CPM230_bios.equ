@@ -1,1 +1,300 @@
-C:/develop/TRS-80/CPM_UCSDP/CPM230_bios.equ
+STDDEV	EQU	0003H		;std devices
+DKBROW1	EQU	0F401H		;memory mapped keyboard row 1
+ALLKEYS	EQU	0F47FH		;memmap kbd all keys exc row 8
+VIDBUF	EQU	0F800H		;TRS-80 video buffer
+VIDLIN2	EQU	0F850H		;TRS-80 video buffer 2nd line
+
+BOOT	EQU	0EA00H		; 0: cold start
+WBOOT	EQU	0EA03H		; 1: warm start
+CONST	EQU	0EA06H		; 2: console status
+CONIN	EQU	0EA09H		; 3: console input
+CONOUT	EQU	0EA0CH		; 4: console output
+LISTOUT	EQU	0EA0FH		; 5: list output
+PUNCH	EQU	0EA12H		; 6: punch output
+READER	EQU	0EA15H		; 7: reader input
+HOME	EQU	0EA18H		; 8: home drive head
+SELDSK	EQU	0EA1BH		; 9: select disk
+SETTRK	EQU	0EA1EH		;10: set track #
+SETSEC	EQU	0EA21H		;11: set sector #
+SETDMA	EQU	0EA24H		;12: set DMA address
+READ	EQU	0EA27H		;13: read disk sector
+WRITE	EQU	0EA2AH		;14: write disk sector
+PRSTAT	EQU	0EA2DH		;15: get list status
+SECTRN	EQU	0EA30H		;16: sector translate
+BOOT_	EQU	0EA4BH		;Cold start
+MBANNER	EQU	0EAC2H
+MDRIVEM	EQU	0EB3FH
+WBOOT_	EQU	0EB61H		;warm start
+CONST_	EQU	0EBD0H		;console status
+CONST2	EQU	0EBE0H		;console status for BAT
+CONIN_	EQU	0EBF2H		;console input
+CONOUT_	EQU	0EC02H		;console output
+GCONDEV	EQU	0EC12H		;get console device (0-3, Z if 2)
+LIST_	EQU	0EC1AH		;list output
+PRSTAT_	EQU	0EC2CH		;get list status
+PUNCH_	EQU	0EC3EH		;punch output
+READER_	EQU	0EC52H		;reader input
+IODSP	EQU	0EC64H		;I/O dispatcher
+VTTYSTS	EQU	0EC73H		;DDATBL - TTY status (serial terminal)
+VTTYINP	EQU	0EC75H		;  TTY input
+VTTYOUT	EQU	0EC77H		;  TTY output
+VTTYBSY	EQU	0EC79H		;  TTY busy
+VCRTSTS	EQU	0EC7BH		;  CRT status (KB/VD console)
+VCRTINP	EQU	0EC7DH		;  CRT input
+VCRTOUT	EQU	0EC7FH		;  CRT output
+VCRTBSY	EQU	0EC81H		;  CRT busy
+VUC1STS	EQU	0EC83H		;  UC1 status (user console)
+VUC1INP	EQU	0EC85H		;  UC1 input
+VUC1OUT	EQU	0EC87H		;  UC1 output
+VUC1BSY	EQU	0EC89H		;  UC1 busy
+VLPTSTS	EQU	0EC8BH		;  LPT status (line printer)
+VLPTINP	EQU	0EC8DH		;  LPT input
+VLPTOUT	EQU	0EC8FH		;  LPT output
+VLPTBSY	EQU	0EC91H		;  LPT busy
+VUL1STS	EQU	0EC93H		;  UL1 status (user line printer)
+VUL1INP	EQU	0EC95H		;  UL1 input
+VUL1OUT	EQU	0EC97H		;  UL1 output
+VUL1BSY	EQU	0EC99H		;  UL1 busy
+VPTRSTS	EQU	0EC9BH		;  PTR status (???, linked to kb)
+VPTRINP	EQU	0EC9DH		;  PTR input
+VPTROUT	EQU	0EC9FH		;  PTR output
+VPTRBSY	EQU	0ECA1H		;  PTR busy
+VUR1STS	EQU	0ECA3H		;  UR1 status (user reader 1)
+VUR1INP	EQU	0ECA5H		;  UR1 input
+VUR1OUT	EQU	0ECA7H		;  UR1 output
+VUR1BSY	EQU	0ECA9H		;  UR1 busy
+VUR2STS	EQU	0ECABH		;  UR2 status (user reader 2)
+VUR2INP	EQU	0ECADH		;  UR2 input
+VUR2OUT	EQU	0ECAFH		;  UR2 input
+VUR2BSY	EQU	0ECB1H		;  UR2 input
+VPTPSTS	EQU	0ECB3H		;  PTP status (???, linked to vd)
+VPTPINP	EQU	0ECB5H		;  PTP input
+VPTPOUT	EQU	0ECB7H		;  PTP output
+VPTPBSY	EQU	0ECB9H		;  PTP busy
+VUP1STA	EQU	0ECBBH		;  UP1 status (user puncher 1)
+VUP1INP	EQU	0ECBDH		;  UP1 input
+VUP1OUT	EQU	0ECBFH		;  UP1 output
+VUP1BSY	EQU	0ECC1H		;  UP1 busy
+VUP2STA	EQU	0ECC3H		;  UP2 status (user puncher 2)
+VUP2INP	EQU	0ECC5H		;  UP2 input
+VUP2OUT	EQU	0ECC7H		;  UP2 output
+VUP2BSY	EQU	0ECC9H		;  UP2 busy
+NULSTS	EQU	0ECCBH		;  BAT status (dummy)
+NULOUT	EQU	0ECCCH		;  BAT output (dummy)
+NULINP	EQU	0ECCDH		;  BAT input (dummy)
+CRTBSY	EQU	0ECD0H		;return 0FFH
+INITDEV	EQU	0ECD3H		;Init devices
+INITDV1	EQU	0ECEBH		;reinit devices
+OUTSTR	EQU	0ED0DH		;output string
+DELAY	EQU	0ED19H		;delay( A )
+DELAY1	EQU	0ED1AH		;delay main loop
+DELAY2	EQU	0ED1CH		;delay loop 1
+DELAY3	EQU	0ED20H		;delay loop 2
+FILL0SP	EQU	0ED28H		;fill (SP+2) zeros at (SP)
+FILLA	EQU	0ED33H		;fill BC bytes at (DE) with A
+INTINC	EQU	0ED3EH		;increment word at (HL)
+INTCMP	EQU	0ED44H		;compare words at (HL) and (DE)
+MEMCMP	EQU	0ED4EH		;compare BC bytes between (HL) and (DE)
+KBDST	EQU	0ED56H		;keyboard status
+KBDST1	EQU	0ED63H		;keyboard status loop
+KBDIN	EQU	0ED66H		;keyboard input
+KBDIN1	EQU	0ED6EH		;keyboard input loop
+KBDSCAN	EQU	0ED74H		;scan keyboard
+LKBSCN1	EQU	0ED7EH		;kbd scan loop 1
+LKBSCN2	EQU	0ED86H		;kbd scan loop 2
+JKBSCN1	EQU	0EDA9H		;kbd scan jump 1
+KBDNEWK	EQU	0EDC0H		;New key down
+LKEYBIT	EQU	0EDD4H		;convert bit order to raw char
+KEYSYMB	EQU	0EDFCH		;digits and symbols
+KBDXTHL	EQU	0EE14H		;exit with char in (HL)
+KBDEXTB	EQU	0EE15H		;exit with char in B
+KBDEXIT	EQU	0EE16H		;exit with char in A
+KEYF123	EQU	0EE1EH		;check F1/F2/F3 and translate
+JKEYFN1	EQU	0EE2FH		;no non-special key presses
+JKEYFN2	EQU	0EE52H		;no CAPS
+LKEYFN1	EQU	0EE5EH		;loop to point to F1-F3 string
+JKEYFN3	EQU	0EE70H		;point to shift-Fn
+KEYFCHR	EQU	0EE71H		;get next translated F-key char
+KBDDBNC	EQU	0EE83H		;keyboard debounce
+KBDCLR	EQU	0EE8BH		;clear keyboard state
+DKIPEND	EQU	0EE93H		;KBDCB - pending keyboard char
+DKIFNPT	EQU	0EE94H		;function key translate pointer
+DKIDOWN	EQU	0EE96H		;saved keys down
+DKIDWN7	EQU	0EE9DH		;shift/ctrl/clear/special keys
+DKINEWR	EQU	0EE9EH		;new key physical row
+DKINEWS	EQU	0EE9FH		;new key state ptr
+DKBDRPT	EQU	0EEA1H		;key down repeat delay
+DKBDCNT	EQU	0EEA3H		;key down counter for repeat
+DKBDCPS	EQU	0EEA5H		;caps lock flag
+DKBTRAN	EQU	0EEA6H		;keyboard translation table
+KBCOD99	EQU	0EF0CH		;KBDCOD+63H
+VIDOUT	EQU	0EF48H		;video handler entry point
+VIDGTCH	EQU	0EF67H		;get current char at cursor
+VIDPTCH	EQU	0EF6CH		;put char at cursor
+VIDCPOS	EQU	0EF71H		;convert current video X,Y pos to address
+VIDPOS	EQU	0EF74H		;convert video X,Y pos in HL to address
+VIDCHAR	EQU	0EF88H		;output char to video
+VIDESC	EQU	0EFA0H		;escape mode (3:if C='=' then mode 2 else 0)
+VIDESC1	EQU	0EFB3H		;escape mode 1: horizontal move to C-20H
+VIDESC2	EQU	0EFC7H		;escape mode 2: vertical move to C-20H
+VIDSFLG	EQU	0EFD5H		;set flags
+VIDCTLC	EQU	0EFD9H		;ctrl chars handler
+VIDBEL	EQU	0EFECH		;[07] emit bell
+BEEP	EQU	0EFEEH		;emit beep with duration in C
+BEEP2	EQU	0EFF1H		;beep loop 1
+BEEP3	EQU	0EFF8H		;beep loop 2
+VIDLEFT	EQU	0F000H		;[08] move cursor left
+VIDTAB	EQU	0F00CH		;[09] horiz tab (tab)
+VIDLF	EQU	0F018H		;[0A] vert tab (line feed)
+VIDUP	EQU	0F01BH		;[0B] move cursor up
+VIDRGHT	EQU	0F023H		;[0C] move cursor right
+VID1E	EQU	0F02DH		;[1E] home cursor
+VIDCR	EQU	0F02FH		;[0D] carriage return
+VIDCSCL	EQU	0F031H		;check if scroll needed
+VIDGOLL	EQU	0F046H		;Go to beg of last line
+VIDSCRL	EQU	0F046H		;Scroll
+VIDCINL	EQU	0F04DH		;[1C] insert line
+VIDCDLL	EQU	0F061H		;[1D] delete line
+VIDCEOL	EQU	0F06CH		;[15][18] clear to end of line
+VIDCLS	EQU	0F076H		;[1A] clear screen
+VIDCEOS	EQU	0F07CH		;[17][19] clear to end of screen
+VIDCLR	EQU	0F07FH		;clear to DE
+VIDNINV	EQU	0F08FH		;[0E] disable inverse video
+VIDINV	EQU	0F092H		;[0F] enable inverse video
+VIDTINV	EQU	0F095H		;[16] toggle inverse video
+LF07A	EQU	0F098H
+LF07C	EQU	0F09AH
+VID1B	EQU	0F09EH		;[1B] ESC=<row+32><col+32>
+VIDCKLL	EQU	0F0A3H		;check if last line and get LDxR count in BC
+VIDESCC	EQU	0F0B2H		;<ESC>1|0 Set/Clear cursor
+CLRVIDS	EQU	0F0BFH		;clear 5 bytes at F08E: video state
+DVIDCUR	EQU	0F0C8H		;VDDCB - current char at cursor
+DVIDXY	EQU	0F0C9H		;current X,Y video pos
+DVIDINV	EQU	0F0CBH		;inverse video if 0x80
+DVIDESC	EQU	0F0CCH		;escape mode <ESC>=yx (x=col+20H,y=row+20h)
+VDDESX	EQU	0F0CDH		;saved video row
+DVIDOFS	EQU	0F0CEH		;ctrl char handler offsets
+DVIDCUR	EQU	0F0EEH		;Cursor enabled (80)/disabled (00)
+PPBSY	EQU	0F0EFH		;Printer status
+PPBSY1	EQU	0F0F9H		;
+PPOUT	EQU	0F0FBH		;output C to parallel port
+PPOUT1	EQU	0F113H		;send char to printer, convert FF to LFs
+PPOUT2	EQU	0F122H		;wait for prtr ready
+PRINT	EQU	0F12FH		;send char to printer, count line
+PPCLF	EQU	0F137H		;check for linefeed, adj counter
+PPRLC	EQU	0F143H		;reset line ctr, if 0 exit
+PPRLC1	EQU	0F149H		;reset line ctr
+PPOUTX	EQU	0F14FH		;save char & exit
+PRNTOF	EQU	0F154H		;set printer top of form
+DPRNLST	EQU	0F15FH		;PPDCB - last printed char (for auto cr/lf)
+DPRNFLG	EQU	0F160H		;printer flags (b0=auto cr/lf, b1=soft ff)
+DPRNCNT	EQU	0F161H		;remaining lines in form counter
+DPRNFLN	EQU	0F162H		;form length
+SERST	EQU	0F163H		;serial status
+SERIN7	EQU	0F16BH		;serial input (7 bits)
+SEROUT	EQU	0F176H		;serial output
+MDMST	EQU	0F17FH		;modem status
+INITSER	EQU	0F19EH		;init serial interface, baud and flags
+SPDCB	EQU	0F1ABH		;SPDCB - ser init vector
+DBAUD	EQU	0F1AFH		;baud rate
+DUART	EQU	0F1B0H		;UART flags
+SELDSK_	EQU	0F1B1H		;select disk
+HOME_	EQU	0F1CCH		;home drive head
+SETTRK_	EQU	0F1CFH		;set track #
+SETSEC_	EQU	0F1D8H		;set sector #
+SETDMA_	EQU	0F213H		;set DMA address
+SECTRN_	EQU	0F218H		;sector translate
+READ_	EQU	0F21EH		;read disk sector
+WRITE_	EQU	0F253H		;write disk sector
+NXTSEC	EQU	0F2BEH		;next sector
+CLBUF	EQU	0F335H		;clear BIOS disk buffer
+MDSKERR	EQU	0F3A1H		;"disk error"
+MDRIVLT	EQU	0F3B2H		;drive letter position
+MERRCOD	EQU	0F3B5H		;error codes position
+ERCODES	EQU	0F3BCH		;6 error codes
+MDRDWR	EQU	0F3C2H		;*** M: drive I/O driver
+MDWRIT	EQU	0F3CBH		;*** M: drive write
+MDMOVE	EQU	0F3CFH		;*** M: drive data move
+MDADDR	EQU	0F3DEH		;*** M: drive address setup
+FDD	EQU	0F3EFH		;*** Floppy disk I/O driver
+FDINOP	EQU	0F3F5H		;return INOP
+FDREAD	EQU	0F3F8H		;FDC read sector from disk
+FDRD3	EQU	0F40BH		;read sector 3 attempts
+FDRDSC	EQU	0F414H		;FDC read sector
+FDRDS1	EQU	0F41CH		;wait DRQ
+FDRDS2	EQU	0F424H		;read loop
+FDRDS3	EQU	0F42AH		;read termination
+FDWRIT	EQU	0F42EH		;FDC write sector to disk
+FDWT3	EQU	0F443H		;write sector 3 attempts
+FDWTSC	EQU	0F44EH		;FDC write a sector
+FDWTS1	EQU	0F456H		;wait first DRQ
+FDWTS2	EQU	0F461H		;wait second DRQ
+FDWTS3	EQU	0F46BH		;write loop
+FDWTS4	EQU	0F471H		;write termination
+FDBEGN	EQU	0F475H		;FDC sel disk & wait for speed
+FDBEG1	EQU	0F494H		;skip side 1 sector bias
+FDBEG2	EQU	0F4A5H		;skip side 1 sector bias
+FDBEG3	EQU	0F4B0H		;skip double step
+FDBEG4	EQU	0F4B9H		;skip set precomp
+FDBEG5	EQU	0F4C9H		;start-up delay loop
+FDBEG6	EQU	0F4D3H		;drive running
+FDSEEK	EQU	0F4D6H		;seek the proper track
+FDSEK1	EQU	0F4F9H		;do step/seek
+FDSEK2	EQU	0F4FCH		;skip step/seek
+FDRST	EQU	0F502H		;FDC restore head for I/O retry
+FDJOG	EQU	0F50BH		;FDC jog head for I/O retry
+FDSTEP	EQU	0F512H		;perform FDC step operation
+FDSTP1	EQU	0F523H		;FDC busy loop
+FDSEL	EQU	0F531H		;keep disk selected while busy
+FDCMD	EQU	0F537H		;send cmd to FDC
+FDCMD1	EQU	0F53BH		;16 uS delay loop
+FDSET	EQU	0F53FH		;set up I/O for FDC
+FDSET1	EQU	0F574H		;not 8"
+FDNMI	EQU	0F57EH		;FDC NMI Handler
+DPHA	EQU	0F593H		;Disk Param Header for A
+DPHB	EQU	0F5A3H		;Disk Param Header for B
+DPHC	EQU	0F5B3H		;Disk Param Header for C
+DPHD	EQU	0F5C3H		;Disk Param Header for D
+DPHM	EQU	0F5D3H		;Disk param header for M
+DPB0	EQU	0F5E3H		;Disk param block for A
+DPB1	EQU	0F5F8H		;Disk param block for B
+DPB2	EQU	0F60DH		;Disk param block for C
+DPB3	EQU	0F622H		;Disk param block for D
+DPBM	EQU	0F637H		;Disk param block for M
+D0DCB	EQU	0F64CH		;DCB for drive 0
+D0DCBTK	EQU	0F655H		;drive 0 current track
+D1DCB	EQU	0F658H		;DCB for drive 1
+D1DCBTK	EQU	0F661H		;drive 1 current track
+D2DCB	EQU	0F664H		;DCB for drive 2
+D2DCBTK	EQU	0F66DH		;drive 2 current track
+D3DCB	EQU	0F670H		;DCB for drive 3
+D3DCBTK	EQU	0F679H		;drive 3 current track
+DMDCB	EQU	0F67CH		;DCB for drive M
+XLT0	EQU	0F67FH		;Drive 0 sector translation table
+XLT1	EQU	0F69DH		;Drive 1 sector translation table
+XLT2	EQU	0F6BBH		;Drive 2 sector translation table
+XLT3	EQU	0F6D9H		;Drive 3 sector translation table
+VBIOSEX	EQU	0F6F7H		;vector to BIOSEX (RET,NOP,NOP by default)
+DPHTBL	EQU	0F6FAH		;DPH table (DPHDRVA=DPH for drive A)
+DPHDRVB	EQU	0F6FCH		;DPH for drive B
+DPHDRVC	EQU	0F6FEH		;DPH for drive C
+DPHDRVD	EQU	0F700H		;DPH for drive D
+DPHDRVM	EQU	0F712H		;DPH for drive M
+CURDRV	EQU	0F71AH		;current drive
+DSBDMA	EQU	0F722H		;starting track
+DSBWRTY	EQU	0F726H		;write type (0=nor,1=dir,2=new)
+DSBNTK	EQU	0F72DH		;starting track
+DSBNSC	EQU	0F72FH		;starting track
+DSBRPT	EQU	0F731H		;records per track
+ALL0	EQU	0F73DH
+ALL1	EQU	0F77DH
+ALL2	EQU	0F7BDH
+ALL3	EQU	0F7FDH
+ALLM	EQU	0F83DH
+CHK0	EQU	0F87DH
+CHK1	EQU	0F89DH
+CHK2	EQU	0F8BDH
+CHK3	EQU	0F8DDH
+NMITMP	EQU	0F8FDH		;temp NMI vector save area
+NMITMP1	EQU	0F8FEH		;temp NMI vector save area + 1
+DBUF	EQU	0F900H		;FDC I/O data buffer

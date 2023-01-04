@@ -1,1 +1,5 @@
-C:/develop/TRS-80/CPM_UCSDP/mk_MakeDisk.bat
+@echo off
+call vcvars32.bat
+if errorlevel 1 pause && exit /B %ERRORLEVEL%
+cl MakeDisk.c
+if errorlevel 1 pause && exit /B %ERRORLEVEL%

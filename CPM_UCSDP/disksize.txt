@@ -1,1 +1,19 @@
-C:/develop/TRS-80/CPM_UCSDP/disksize.txt
+Disk sizes:
+===========
+
+Formula:
+--------
+
+Blocks := ( min( 255, Heads * Cyls ) - 1stTrk ) * Sects * S.Size / 512
+
+
+Type	Format		Heads	Cyls	Sects	S.Size	1stTrk	Blocks	Capacity
+--------------------------------------------------------------------------------
+Floppy	MM Sys 1S2D40	1	 40	18	256	2	 342	 171K
+Floppy	MM Sys 2S2D40	2	 40	18	256	2	 702	 351K
+Floppy	MM Sys 1S2D80	1	 80	18	256	2	 702	 351K
+Floppy	MM Sys 2S2D80	2	 80	18	256	2	1422	 711K
+Hard	15M/2C 3H255T	3	306	32	256	2	4048	2022K
+Hard	15M/6C 1H255T	1	306	32	256	2	4048	2022K
+Hard	15M/2C 3H255T	3	153	64	256	1	8128	4064K
+Hard	15M/6C 1H255T	1	153	64	256	1	4864	2432K
