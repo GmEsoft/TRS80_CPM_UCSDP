@@ -5,9 +5,12 @@ CPM_UCSDP/r_*.bat
 
 softech
 zmac
+build
 *.hex
 *.img
 *.bin
 *.obj
+*.out
 
-ucsd*
+ucsd-st
+ucsdstfr
