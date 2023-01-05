@@ -11,6 +11,8 @@ build
 *.bin
 *.obj
 *.out
+*.hfe
+*.zip
 
 ucsd-st
 ucsdstfr
