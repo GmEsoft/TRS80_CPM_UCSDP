@@ -5,7 +5,6 @@ Work in progress. Current state in the [develop](https://github.com/GmEsoft/TRS8
 
 Ready-to-use disk images available [here](https://github.com/GmEsoft/TRS80_CPM_UCSDP/releases/tag/v0.1-alpha).
 
-
 ### Booting SBIOS:
 
 ![SBIOS Booting](HD-BOOT.PNG)
@@ -326,5 +325,3 @@ The configured BIOS is rewritten back to the system disk.
 ### `Q(uit`:   Quit the CONFIG tool
 
 This terminates the CONFIG utility session.
-
-
