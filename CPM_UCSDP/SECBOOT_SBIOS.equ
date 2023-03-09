@@ -1,0 +1,109 @@
+SECBOOT	EQU	08200H		;sec boot entry point
+BYTESEX	EQU	08203H		;little or big endian
+MINTERP	EQU	0820AH		;SYSTEM.INTERP
+MNOINTR	EQU	0821AH		;message can't find SYSTEM.INTERP
+_BASE	EQU	08239H		;base memory ptr
+SVSTACK	EQU	0823BH		;stack parameters copy
+SVINTRP	EQU	0823FH		;INTERP ptr
+SVHIMEM	EQU	08241H		;HIMEM ptr
+SVMSPT	EQU	0824FH		;max sectors per track
+SVMBPS	EQU	08251H		;max bytes per sector
+XCLBAK2	EQU	08253H		;exec call back 2
+JPIND	EQU	08254H		;JP (HL+JPTABLE)
+LDIR80	EQU	08259H		;i8080 LDIR routine
+LINTERP	EQU	08264H		;locate SYSTEM.INTERP
+LINTERP	EQU	08291H		;loop to search SYSTEM.INTERP
+FINTERP	EQU	082D7H		;SYSTEM.INTERP is found
+NOSWTCH	EQU	082EEH		;jump to not switch DE & BC
+RINTERP	EQU	08303H		;relocate SYSTEM.INTERP
+XRINTRP	EQU	08333H		;end relocate INTERP, move it
+SECBT1	EQU	08348H		;sec boot entry pt 1
+JPTABLE	EQU	083FAH		;Jump vector table
+VEC1	EQU	08451H		;vector 1 (0006H)
+VEC2	EQU	08453H		;vector 2 (0006H)
+CONFLGS	EQU	08455H		;console flags (bits 0 and 1) = ?
+CPPARMS	EQU	08457H		;parameters copy
+SBIOSPT	EQU	08459H		;SBIOS ptr
+HIMEM1	EQU	0845DH		;HIMEM ptr copy
+TPD1	EQU	0845FH		;Tracks per disk copy
+SPT1	EQU	08461H		;Sectors per track copy
+BPS1	EQU	08463H		;Bytes per sector copy
+INTERL1	EQU	08465H		;Interleaving factor copy
+FSTPTK1	EQU	08467H		;First Pascal track copy
+SKEW1	EQU	08469H		;Track Skew copy
+TINTERL	EQU	0846BH		;sectors interleave table
+_DMAWR	EQU	0846DH		;DMA address for write
+_TRK	EQU	0846FH		;track number
+_SEC	EQU	08470H		;sector number
+_SKEWED	EQU	08471H		;skewed track offset
+_LSECT	EQU	08473H		;current logical sector
+_DIVLPS	EQU	08475H		;division loops
+_SPB	EQU	08476H		;sectors per 512-byte block
+_DMA	EQU	08478H		;DMA address
+_TRYCTR	EQU	0847AH		;retry counter (2 times)
+_RDWR	EQU	0847BH		;read or write operation
+_DMA1	EQU	0847DH		;DMA address 1
+_BYTCTR	EQU	0847FH		;total bytes down counter
+_RETADR	EQU	08485H		;service return address
+HOME1ST	EQU	08487H		;select first disk and home head
+DOREAD	EQU	08496H		;do disk read
+DOWRITE	EQU	0849BH		;do disk write
+DORDWR	EQU	0849DH		;do disk rd/wr
+MOVSECT	EQU	08541H		;move sector in memory
+MOVSEC0	EQU	08559H		;Move sector in memory 0
+DSKIOOK	EQU	0857BH		;Disk I/O OK
+DSKIOER	EQU	0857CH		;Disk I/O Error exit (0=OK)
+DSKEXIT	EQU	08581H		;exit disk routine
+DSKIO09	EQU	08585H		;Disk I/O error code 9 (no device)
+DSKIO17	EQU	0858AH		;Disk I/O error code 17 (trk too high?)
+DSKPARM	EQU	0858FH		;pop Disk I/O parameters
+J0021	EQU	085AAH		;routine J0021 = ?
+WRHLDE	EQU	085D9H		;write HL to DE, bump DE
+MKINTLV	EQU	085E0H		;build interleave table
+GINTERL	EQU	08630H		;get interleave pointer
+GTRKSEC	EQU	08635H		;get phys track and sector
+LSKEW	EQU	08682H		;track skew adj loop
+XSKEW	EQU	0868AH		;exit skew adj loop
+LSECT	EQU	0868DH		;sector loop
+DIVHLBC	EQU	086D4H		;div HL by BC to DE, rmdr in HL
+POLCONS	EQU	08706H		;poll console keyboard
+JVEC1	EQU	0874EH		;jump to vector 1 (0006H)
+J0006	EQU	08766H		;routine J0006=?
+J0000	EQU	08779H		;Routine 0000h = ?
+OUTCONS	EQU	08788H		;output to console (J0003)
+J0009	EQU	087A0H		;routine J0009 = ?
+J0030	EQU	087D1H		;routine J0030 = ?
+J0024	EQU	087D4H		;routine J0024 = reader?
+OUTPNCH	EQU	087DEH		;routine J0027: output to PUNCH
+J0033	EQU	087E4H		;routine J0033 = ?
+J0012DY	EQU	087FDH		;routine J0012 = dummy
+J000C	EQU	08800H		;routine J000C = ?
+OUTLIST	EQU	0880AH		;routine J000F = output to LIST
+J0015	EQU	08810H		;routine J0015 = ?
+NOTONLN	EQU	08829H		;Ret A=09H (not online)
+JWBOOT	EQU	0882CH		;Jump to SBIOS warm boot
+JINTERL	EQU	0882FH		;routine to build interleave table
+@SYSINI	EQU	08868H		;SBIOS initialize machine
+@SYSHLT	EQU	08870H		;SBIOS exit ucsd pascal
+@CONINI	EQU	08875H		;SBIOS console initialize
+@CONSTA	EQU	0887AH		;SBIOS console status
+@CONRD	EQU	0887FH		;SBIOS console input
+@CONWRT	EQU	08884H		;SBIOS console output
+@SETDSK	EQU	08889H		;SBIOS select disk
+@SETTRK	EQU	0888EH		;SBIOS set track
+@SETSEC	EQU	08893H		;SBIOS set sector
+@SETBUF	EQU	08898H		;SBIOS set buffer address
+@DSKRD	EQU	0889DH		;SBIOS read sector
+@DSKWR	EQU	088A2H		;SBIOS write sector
+@DSKINI	EQU	088A7H		;SBIOS reset disk
+@DSKSTA	EQU	088ACH		;SBIOS activate disk
+@DSKSTP	EQU	088B1H		;SBIOS de-activate disk
+POP5ER9	EQU	088B6H		;pop 5 args and return error = 9
+POP2ER9	EQU	088BAH		;pop 2 args and return error = 9
+ERR9C0	EQU	088BDH		;return error = 9, C=0
+ERROR9	EQU	088BFH		;return error = 9
+XORA	EQU	088C2H		;clear A and flags
+SBIOSSV	EQU	088C4H		;invoke SBIOS service @SBIOS+E
+CALBACK	EQU	088CBH		;(POLLUNITS) call back from BIOS
+CALBAK1	EQU	088CEH		;(DSKCHNG)   call back from BIOS 1 (build interleave)
+CALBAK2	EQU	088D1H		;call back from BIOS 2 (ret)

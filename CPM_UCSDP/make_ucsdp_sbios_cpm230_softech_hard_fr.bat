@@ -1,0 +1,2 @@
+@echo off
+make_ucsdp_sbios_cpm230_softech_hard cpm4fr ucsdstfr

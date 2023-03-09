@@ -1,0 +1,42 @@
+Montezuma Micro CP/M Console Input/Output
+=========================================
+
+Keyboard
+--------
+	Original	Hex	Dec	Reconfigured for UCSD Pascal
+	-------------------------------	----------------------------
+Escape	Shift-Clear	1BH	27	Clear or Break
+Del	Ctrl-Clear	7FH	127	Ctrl-Clear
+Up			0BH	11
+Down			0AH	10
+Left			08H	8
+Right			09H	9
+^C	Break or ^C	03H	3	^C
+Cancel	Clear		18H	24	Shift-Clear
+Pause	^S		13H	19
+
+
+Video
+-----
+ASCII	Function	Hex	Dec
+---------------------------------------
+Bell	BEL		07H	7
+Basksp	BS		08H	8
+Tab	TAB		09H	9
+LF/Down	Move csr down	0AH	10
+VT/Up	Move csr up	0BH	11
+FF/Rght	Move csr right	0CH	12
+CR/Tol	Begin of line	0DH	13
+SO	Reverse off	0EH	14
+SI	Reverse on	0FH	15
+NK/CEOL	Clear to EOL	15H	21
+SYN/Rev	Reverse toggle	16H	22
+FS/InsL	Insert line	1CH	28
+GS/DelL	Delete line	1DH	29
+EM/CEOS	Clear to EOS	19H	25
+SUB/CLS	Clear Screen	1AH	26
+RS/Home	Home cursor	1EH	30
+Esc-0	Cursor Off	1BH,30H	27,48
+Esc-1	Cursor On	1BH,31H	27,49
+GotoXY	Move csr to X,Y	1BH,3DH,y+20H,x+20H	27,61,y+32,x+32	(x=0..79,y=0..23)
+

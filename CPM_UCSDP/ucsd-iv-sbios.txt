@@ -1,0 +1,188 @@
+UCSD p-System IV.0 SBIOS
+========================
+
+1: copy CPM230_HZP40DB_Z8SYS.JV3 to CPM230_softech-sys.JV3
+
+2: start system with:
+	CPM230_HZP40DB_Z8SYS.JV3
+	CPM230_softech-sys.JV3
+	CPM230_UZP40DC_UTIL1.JV3
+	CPM230_UZP40DC_UTIL2.JV3
+
+3: Zero new disk #5
+	F(iler
+	Z(ero
+	Zero dir of what vol ? #5
+	Destroy Z8SYS ? Y
+	Duplicate dir ? Y
+	Are there 153 blks on the disk ? (Y/N) N
+	# of blocks on the disk ? 702
+	New vol name ? SYS
+	SYS: correct ? Y
+	SYS: zeroed
+	Q(uit
+
+4: copy #4 to #5
+	F(iler
+	T(rans
+	Transfer what file ? #4:=,#5:$
+	(copying 4 files)
+	Q(uit
+
+5: restart system with
+	CPM230_softech-sys.JV3
+	CPM230_SCP40D_SYS1.JV3
+	CPM230_SCP40D_SYS2.JV3
+	CPM230_SCP40D_SYS3.JV3
+
+6: copy #5, #9, #10 to #4
+	F(iler
+	T(rans
+	Transfer what file ? #5:=,#4:$
+	(copying 3 files)
+	T(rans
+	Transfer what file ? #9:=,#4:$
+	(copying 6 files)
+	T(rans
+	Transfer what file ? #10:=,#4:$
+	(copying 4 files)
+	Q(uit
+
+7: copy CPM230_UZP40DC_UTIL1.JV3 to CPM230_softech-util.JV3
+
+8: start system with:
+	CPM230_softech-sys.JV3
+	CPM230_softech-util.JV3	
+	CPM230_UZP40DC_UTIL1.JV3
+	CPM230_UZP40DC_UTIL2.JV3
+
+9: Zero new disk #5
+	F(iler
+	Z(ero
+	Zero dir of what vol ? #5
+	Destroy UTIL1 ? Y
+	Duplicate dir ? Y
+	Are there 153 blks on the disk ? (Y/N) N
+	# of blocks on the disk ? 702
+	New vol name ? UTIL
+	UTIL: correct ? Y
+	UTIL: zeroed
+	Q(uit
+
+10: copy #9, #10 to #5
+	F(iler
+	T(rans
+	Transfer what file ? #9:=,#5:$
+	(copying 13 files)
+	T(rans
+	Transfer what file ? #10:=,#5:$
+	(copying 6 files)
+	Q(uit
+
+
+11: copy CPM230_HZP40DB_INTZ80.JV3 to CPM230_softech-interp.JV3
+
+12: start system with:
+	CPM230_softech-sys.JV3
+	CPM230_softech-interp.JV3	
+	CPM230_CZP40DC_INTCPM.JV3
+	CPM230_HZP40DB_INTZ80.JV3
+
+13: Zero new disk #5
+	F(iler
+	Z(ero
+	Zero dir of what vol ? #5
+	Destroy INTZ80 ? Y
+	Duplicate dir ? Y
+	Are there 153 blks on the disk ? (Y/N) N
+	# of blocks on the disk ? 702
+	New vol name ? INTERP
+	INTERP: correct ? Y
+	INTERP: zeroed
+	Q(uit
+
+14: copy #9, #10 to #5
+	F(iler
+	T(rans
+	Transfer what file ? #9:=,#5:$
+	(copying 14 files)
+	T(rans
+	Transfer what file ? #10:=,#5:$
+	(replace existing files)
+	(copying 10 files)
+	Q(uit
+
+15: start system with:
+	CPM230_softech-sys.JV3
+	CPM230_softech-util.JV3
+	CPM230_softech-interp.JV3	
+
+16: set system date; set default disk to #5; copy SAMPLEGOTO.TEXT to GOTOXY.TEXT
+	F(iler
+	D(ate
+	(enter new date)
+	T(rans
+	Transfer what file ? SAMPLEGOTO.TEXT,GOTOXY.TEXT
+	Q(uit
+
+17: edit GOTOXY.TEXT using YALOE; compile it
+	F(iler
+	G(et
+	Get what file ? GOTOXY
+	Q(uit
+	X(ecute
+	Execute what file? YALOE
+	2A L<esc><esc>
+	K<esc><esc>
+	IUNIT GOTOXY;
+	INTERFACE
+	<esc><esc>
+	A L<esc><esc>
+	IIMPLEMENTATION
+	PROCEDURE FGOTOXY;
+	<esc><esc>
+	B G,'<esc> C=<esc> B 100L<esc><esc>
+	Q<esc><esc>
+	U(pdate work file
+	C(ompile
+	F(iler
+	S(ave
+	Save as UTIL:GOTOXY ? Y
+	Remove old UTIL:GOTOXY.TEXT ? Y
+	Q(uit
+
+18: bind GOTOXY using Library
+	X(ecute
+	Execute what file? LIBRARY
+	Library: [IV.0 z10]
+	Output file? NEW.PASCAL
+	Input file? GOTOXY.CODE
+	Library: N(ew... [IV.0 z10]
+	T(ext
+	Interface sections will not be copied
+	Library: N(ew... [IV.0 z10]
+	0
+	From slot #? 0<Space>  To slot #? 16
+	 16 u GOTOXY      55
+	Library: N(ew... [IV.0 z10]
+	N(ew
+	Input file? #4:SYSTEM.PASCAL
+	(shows lines numbered from 0 to 20)
+	Library: N(ew... [IV.0 z10]
+	E(very
+	(shows lines numbered from 0 to 20)
+	Output file is 84 blocks long
+	Library: N(ew... [IV.0 z10]
+	Q(uit
+	Notice? <enter>
+	Output file is 85 blocks long
+		
+19: copy the new NEW.PASCAL to SYSTEM.PASCAL on the system disk
+	F(iler
+	T(rans
+	Transfer what file ? NEW.PASCAL,#4:SYSTEM.PASCAL
+	Remove old SYSTEM.PASCAL ? Y
+	Q(uit
+
+20: reboot the system
+		
