@@ -7,7 +7,7 @@
 #include <fcntl.h>    // O_RDWR...
 #include <sys/stat.h> // S_IWRITE
 
-#define JV3_DISK "JV3 Disk Image Converter V0.2, (C) 2020 by GmEsoft"
+#define JV3_DISK "JV3 Disk Image Converter V0.4, (C) 2020-24 by GmEsoft"
 
 typedef unsigned int uint32_t;
 
@@ -48,6 +48,8 @@ void help()
 				S = side
 02200-.....	Sectors data (256 bytes)
 
+TODO: Support sizes other than 256 bytes !
+
 *******************************************************/
 
 unsigned char buf[SEC_LEN];
@@ -64,6 +66,8 @@ int i;
 int nbytes;
 int psector1=0, psides=1, ptracks=0, psectors=0, pnsectors=0, pinterl=1;
 int ptrkskew=0, psidskew=0, psecskew=1;
+
+const unsigned secsizes[] = {256, 128, 1024, 512};
 
 void make_secmap( int skew, unsigned char *map, unsigned char *rmap, int print )
 {
@@ -157,11 +161,12 @@ void make_index( int outfile )
 
 void analyze( int infile )
 {
-	int sec1 = -1, sidskew = -1, trkskew = -1, secskew = -1;
+	int sec1 = -1, sidskew = -1, trkskew = -1, secskew = -1, secsize = -1;
 
 	load_index( infile );
 	printf( "Interleave Pattern:" );
 	cursid = -1;
+
 	for ( i=0; i<8*sectors; ++i )
 	{
 		int phys_sec = i % sectors;
@@ -169,11 +174,12 @@ void analyze( int infile )
 		sec = index[i][1];
 		flags = index[i][2];
 		sid = ( flags & 0x10 ) >> 4;
+		secsize = secsizes[flags & 3];
 		if ( cursid != sid || curtrk != trk )
 		{
 			cursid = sid;
 			curtrk = trk;
-			printf( "\nS%dT%02d: ", sid, trk );
+			printf( "\nS%dT%02d len=%4d: ", sid, trk, secsize );
 		}
 		printf( "%02d ", sec );
 
@@ -230,6 +236,12 @@ void extract( int infile, int outfile )
 		flags = index[i][2];
 		sid = ( flags & 0x10 ) >> 4;
 
+		if ( trk < 0xFF && ( flags & 3 ) )
+		{
+			printf( "\n*** Sector size of %d not supported", secsizes[flags&3] );
+			break;
+		}
+
 		if ( trk < 0xFF )
 		{
 			int sector = ( trk * sides + sid ) * sectors + sec;
@@ -253,7 +265,7 @@ void extract( int infile, int outfile )
 
 void create( int infile, int outfile, int update )
 {
-	int sector0;
+	int sector0, lastsector = -1;
 
 	if ( update )
 	{
@@ -282,6 +294,12 @@ void create( int infile, int outfile, int update )
 		flags = index[i][2];
 		sid = ( flags & 0x10 ) >> 4;
 
+		if ( trk < 0xFF && ( flags & 3 ) )
+		{
+			printf( "\n*** Sector size of %d not supported", secsizes[flags&3] );
+			break;
+		}
+
 		if ( trk < 127 )
 		{
 			int sector = ( trk * sides + sid ) * sectors + sec;
@@ -289,7 +307,7 @@ void create( int infile, int outfile, int update )
 			{
 				if ( curtrk != trk || cursid != sid )
 				{
-					printf( "\nT:%02dS%d sec", trk, sid );
+					printf( "\nT:%02d S:%d sec", trk, sid );
 					curtrk = trk;
 					cursid = sid;
 				}
@@ -298,8 +316,16 @@ void create( int infile, int outfile, int update )
 				nbytes = read( infile, buf, SEC_LEN );
 				if ( nbytes < SEC_LEN )
 				{
+					if ( update )
 					printf( "*** Read error sector %d\n", sector - sector0 );
 				}
+				else if ( nbytes > 0 && lastsector < sector )
+				{
+					lastsector = sector;
+				}
+
+				while ( nbytes < SEC_LEN )
+					buf[nbytes++] = 0x7D;
 
 				lseek( outfile, 0x2200 + i * 0x100, SEEK_SET );
 				nbytes = write( outfile, buf, SEC_LEN );
@@ -313,6 +339,7 @@ void create( int infile, int outfile, int update )
 		}
 	}
 	printf( "\n" );
+	printf( "Last sector is %d\n", lastsector - sector0 );
 }
 
 int main( int argc, char* argv[] )
